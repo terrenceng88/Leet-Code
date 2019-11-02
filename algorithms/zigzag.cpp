@@ -31,26 +31,32 @@ P     I
 class Solution {
 public:
     string convert(string s, int numRows) {
-        string result; //converted string to be returned
-        int skipLines; //number of lines that need to be skipped
-        int curr = 0; //current index of the string
-        
-        //checks is number of rows if even or not
-        if(numRows%2 == 0) { 
-            skipLines = numRows + 2;
-        } else {
-            skipLines = numRows + 1;
+        if(numRows == 1) { //edge case for one row, cant zig zag
+            return s;
         }
         
-        for(int i = 0; i < s.size(); i++) {
-            result = result + s[curr];
-            curr = curr + skipLines; 
-            if(skipLines > s.size()){
-                curr = curr%(s.size() - 1);
+        string result = ""; //converted string to be returned
+        int skipLines = 2 * (numRows - 1); //number of max chars that need to be skipped
+        int rowSkip;  //number of chars that need to be skipped in a row
+        int curr; //current index of the string
+
+        for(int i = 0; i < numRows; ++i) { //iterates through each row
+           curr = i; //current char set to row # in row
+           rowSkip = skipLines - (2 * i); 
+
+            while(curr < s.size()) { //while still in current zigzag row                
+                if(rowSkip == 0) { //if rowSkip is 0, set it to max char skip
+                    rowSkip = skipLines;
+                }
+
+                result = result + s[curr];
+                curr = curr + rowSkip;
+                rowSkip = skipLines - rowSkip;
             }
+
         }
-        
+
         return result;
-        
+    
     }
 };
