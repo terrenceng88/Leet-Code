@@ -13,6 +13,8 @@ Because nums[0] + nums[1] = 2 + 7 = 9,
 return [0, 1].
 */
 
+//Runs in O(n) time using hash map
+
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
