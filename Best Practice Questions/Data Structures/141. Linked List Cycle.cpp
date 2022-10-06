@@ -6,7 +6,7 @@ There is a cycle in a linked list if there is some node in the list that can be 
 Return true if there is a cycle in the linked list. Otherwise, return false.
 */
 
-//Runs in O(n) time
+//Runs in O(n) time and O(1) space using 2 pointer fast & slow method
 
 /**
  * Definition for singly-linked list.
@@ -16,6 +16,8 @@ Return true if there is a cycle in the linked list. Otherwise, return false.
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+/*
+//runs in O(n) time and O(n) space using a hashmap and the head pointer
 class Solution {
 public:
     bool hasCycle(ListNode *head) {
@@ -39,5 +41,31 @@ public:
         }
         
         return false;
-    } 
+    }
+};
+*/
+
+//runs in O(n) time and O(1) space using 2 pointer (fast & slow method)
+//works in the same way as 2 runners (1 fast and 1 slow) in a track, there will always be a point when the 2 meet and when that happens you know the track is circular
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
+        if(!head) {  //edge case for if empty linkedlist 
+            return false;    
+        }
+        
+        ListNode* slow = head; //slow moving node starts at head (when fast and slow meet up again, we know its a cycle)
+        ListNode* fast = head; //fast moving node starts at head (when fast and slow meet up again, we know its a cycle)
+        
+        while(fast->next && fast->next->next) { //as long as end of linked list has not been reached (2 nodes exist after fast)
+            slow = slow->next; //move the slow node up by 1
+            fast = fast->next->next; //move the fast node up by 2
+            
+            if(slow == fast) { //if fast and slow node meet up then we know there is a cycle
+                return true;
+            }             
+        }
+        
+        return false;
+    }
 };
