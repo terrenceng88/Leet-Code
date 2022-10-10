@@ -59,7 +59,7 @@ public:
                     low = mid + 1; //move low point in closer to find target
                 }
             } else { //if the right half is the sorted one
-                if(nums[mid] <= target and target <= nums[high]) { //if target isin the right half
+                if(nums[mid] <= target and target <= nums[high]) { //if target is in the right half
                     low = mid + 1; //move low point in closer to find target
                 } else { //if target is in the left half
                     high = mid - 1; //move high point in closer to find target
