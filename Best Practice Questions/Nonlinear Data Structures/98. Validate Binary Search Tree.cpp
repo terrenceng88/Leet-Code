@@ -7,7 +7,7 @@ A valid BST is defined as follows:
     - Both the left and right subtrees must also be binary search trees.
 */
 
-//Runs in O(V
+//Runs in O(n) time complexity
 
 /**
  * Definition for a binary tree node.
@@ -22,7 +22,30 @@ A valid BST is defined as follows:
  */
 class Solution {
 public:
-    bool isValidBST(TreeNode* root) {
+    vector<int> tree;
+    
+    void inOrder(TreeNode* root) {
+        if(root == NULL) {
+            return;
+        }
         
+        inOrder(root->left); //reccursive call on left child
+        tree.push_back(root->val); //add to vector
+        inOrder(root->right); //reccursive call on right child
     }
-};
+    
+    bool isValidBST(TreeNode* root) {
+        if(root == NULL) { //empty tree
+            return true;
+        }
+        
+        inOrder(root); //recursive call to add node values to vector
+        
+        for(int i = 1; i < tree.size(); i++) {
+            if(tree[i] <= tree[i - 1]) {
+                return false;
+            }
+        }
+        
+        return true; //if everything is right
+    }
