@@ -30,7 +30,7 @@ It means that any changes made to a copy of object do not reflect in the origina
 In python, this is implemented using “deep copy()” function.
 */
 
-//Runs in O(
+//Runs in O(V + E) time complexity using DFS
 
 /*
 // Definition for a Node.
@@ -55,7 +55,33 @@ public:
 
 class Solution {
 public:
+    Node* dfs(Node* cur,unordered_map<Node*,Node*>& mp)
+    {
+        vector<Node*> neighbour; //vector to hold deep copy (clone) of graph
+        Node* clone=new Node(cur->val); //create new cloned node
+        mp[cur]=clone; //set current node in map to clone
+            for(auto it:cur->neighbors) //iterate through all the neighbors of the current nodea
+            {
+                if(mp.find(it)!=mp.end())   //already clone and stored in map
+                {
+                    neighbour.push_back(mp[it]);    //directly push back the clone node from map to neighbor
+                }
+                else
+                    neighbour.push_back(dfs(it,mp)); //recursively call dfs on neighbors of current node
+            }
+            clone->neighbors=neighbour; //directly push back all the cloned nodes to the original clone's neighbor vector
+            return clone;
+    }
+
     Node* cloneGraph(Node* node) {
-        
+        unordered_map<Node*,Node*> mp; //map to store all the nodes that have been cloned so far
+        if(node==NULL) //return NULL if invalid graph
+            return NULL;
+        if(node->neighbors.size()==0)   //if only one node present no neighbors
+        {
+            Node* clone = new Node(node->val); //clone and return sole node
+            return clone; 
+        }
+        return dfs(node,mp); //recursively perform DFS to deep copy (clone) and return graph
     }
 };
