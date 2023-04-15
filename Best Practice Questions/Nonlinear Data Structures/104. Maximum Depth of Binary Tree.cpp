@@ -7,7 +7,7 @@ from the root node down to the farthest leaf node.
 
 
 
-//Runs in O(
+//Runs in O(V+E) time using DFS
 
 
 /**
@@ -24,6 +24,9 @@ from the root node down to the farthest leaf node.
 class Solution {
 public:
     int maxDepth(TreeNode* root) {
-        
+        if(!root) return 0; //base case
+        int maxLeft = maxDepth(root->left); //recursive call on left child
+        int maxRight = maxDepth(root->right); //reccursive call on right child
+        return max(maxLeft, maxRight) + 1;
     }
 };
