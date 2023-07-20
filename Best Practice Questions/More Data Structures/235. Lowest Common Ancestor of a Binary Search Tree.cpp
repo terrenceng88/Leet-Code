@@ -8,7 +8,7 @@ descendant of itself).”
 
 
 
-//Runs in O(
+//Runs in O(V + E) time complexity using preorder reccursive traversal
 
 
 /**
@@ -24,6 +24,16 @@ descendant of itself).”
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        
+        //because it's a binary search tree, we know that both p and q have to be on the same side of the current node or the current node is the lowest descendant
+        if(root == NULL) {
+            return NULL;
+        }
+        if( (p->val < root->val) && (q->val < root->val) ) {
+            return lowestCommonAncestor (root->left, p, q); //left 
+        } else if( (p->val > root->val) && (q->val > root->val) ) {
+            return lowestCommonAncestor(root->right, p, q); //right 
+        } else {
+            return root;
+        }
     }
 };
