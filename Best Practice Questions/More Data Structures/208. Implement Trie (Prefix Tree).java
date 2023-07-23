@@ -16,14 +16,41 @@ boolean startsWith(String prefix) Returns true if there is a previously inserted
 
 
 
+class TrieNode {
+    private TrieNode[] children;
+
+
+    public TrieNode() {
+        boolean isEndOfWord = false; //marks end of a word in trie
+        children = new TrieNode[26]; //create children nodes, each letter of alphabet
+
+
+        for(int i = 0; i < 26; i++) {
+            children[i] = NULL;
+        }
+    }
+}
+
+
+
+
 class Trie {
+    TrieNode root;
+
 
     public Trie() {
-        
+        root = new TrieNode();   
     }
     
     public void insert(String word) {
-        
+        TrieNode crawler = root;
+        char[] chArr = new char[word.length()];
+        chArr = word.toCharArray(); //toCharArray converts a string to an array of char's
+        for(char chr: chArr) { 
+            if() {
+                
+            }
+        }
     }
     
     public boolean search(String word) {
@@ -35,6 +62,7 @@ class Trie {
     }
 }
 
+
 /**
  * Your Trie object will be instantiated and called as such:
  * Trie obj = new Trie();
@@ -42,3 +70,5 @@ class Trie {
  * boolean param_2 = obj.search(word);
  * boolean param_3 = obj.startsWith(prefix);
  */
+
+
